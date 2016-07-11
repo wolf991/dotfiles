@@ -9,6 +9,9 @@ autocmd! bufwritepost .vimrc source %
 set pastetoggle=<F2>
 set clipboard=unnamed
 
+" Disable compatibility mode for vi
+set nocompatible
+
 
 " Mouse and backspace
 "" set mouse=a  " on OSX press ALT and click
