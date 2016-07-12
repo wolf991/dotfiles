@@ -18,6 +18,23 @@ if &term =~ '256color'
     set t_ut=
 endif
 
+" By default use relative numbers
+set relativenumber
+
+" Enable toggle between relative numbers
+function! NumberToggle()
+    if(&relativenumber == 1)
+        set norelativenumber
+    else
+        set relativenumber
+    endif
+endfunc
+nnoremap <space> : call NumberToggle()<cr>
+
+" Automatically toggle numbers when entering/leaving insert mode
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+
 " Mouse and backspace
 "" set mouse=a  " on OSX press ALT and click
 "" set bs=2     " make backspace behave like normal again
