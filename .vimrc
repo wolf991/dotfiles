@@ -12,6 +12,11 @@ set clipboard=unnamed
 " Disable compatibility mode for vi
 set nocompatible
 
+if &term =~ '256color'
+    " Disable Background Color Erase so that color schemes
+    " work properly when Vim is used isnide tmux and GNU screen.
+    set t_ut=
+endif
 
 " Mouse and backspace
 "" set mouse=a  " on OSX press ALT and click
