@@ -35,6 +35,21 @@ nnoremap <space> : call NumberToggle()<cr>
 autocmd InsertEnter * :set norelativenumber
 autocmd InsertLeave * :set relativenumber
 
+" Autocomplete with Tab and the words file from linux
+function! Tab_Or_Compete()
+    if col('.')>1 && strpart( getline('.'), col('.')-2, 3) =~ '^\w'
+        return "\<C-N>"
+    else
+        return "\<Tab>"
+    endif
+endfunction
+inoremap <Tab> <C-R>=Tab_Or_Compete()<CR>
+set dictionary+=/usr/share/dict/words
+set complete+=k
+set complete+=]
+set ignorecase
+set infercase
+
 " Mouse and backspace
 "" set mouse=a  " on OSX press ALT and click
 "" set bs=2     " make backspace behave like normal again
