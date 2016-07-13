@@ -178,6 +178,11 @@ call pathogen#infect()
 " Python IDE Setup
 " ============================================================================
 
+" Settings for ack searcher
+" cd ~/.vim/bundle
+" git clone git://github.com/mileszs/ack.vim.git
+cnoreabbrev Ack Ack!
+nnoremap <Leader>a :Ack!<Space>
 
 " Settings for vim-powerline
 " cd ~/.vim/bundle
