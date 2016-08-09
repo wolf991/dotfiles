@@ -12,11 +12,26 @@ set clipboard=unnamed
 " Disable compatibility mode for vi
 set nocompatible
 
-if &term =~ '256color'
-    " Disable Background Color Erase so that color schemes
-    " work properly when Vim is used isnide tmux and GNU screen.
-    set t_ut=
-endif
+"if &term =~ '256color'
+    "" Disable Background Color Erase so that color schemes
+    "" work properly when Vim is used isnide tmux and GNU screen.
+    "set t_ut=
+"endif
+
+" Show whitespace
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Enable syntax highlighting
+" You need to reload this file for the change to apply
+filetype off
+filetype plugin indent on
+syntax enable
+
+set background=light
+"let g:solarized_termcolors=256
+colorscheme solarized
 
 " By default use relative numbers
 set relativenumber
@@ -106,24 +121,13 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
 
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
-
 
 " Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
 " wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color wombat256mod
+"set t_Co=256
+"color wombat256mod
 
-
-" Enable syntax highlighting
-" You need to reload this file for the change to apply
-filetype off
-filetype plugin indent on
-syntax on
 
 
 " Showing line numbers and length
@@ -181,6 +185,10 @@ call pathogen#infect()
 " Settings for ack searcher
 " cd ~/.vim/bundle
 " git clone git://github.com/mileszs/ack.vim.git
+" check if silver searcher (ag) is installed, if so, use it instad of ack
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
 cnoreabbrev Ack Ack!
 nnoremap <Leader>a :Ack!<Space>
 
