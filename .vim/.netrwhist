@@ -1,4 +1,4 @@
 let g:netrw_dirhistmax  =10
 let g:netrw_dirhist_cnt =2
-let g:netrw_dirhist_1='/home/gvolf/FAX/smrpo/smrpo/study_programs'
-let g:netrw_dirhist_2='/home/gvolf/.vim/syntax'
+let g:netrw_dirhist_1='/home/gvolf/projects/SmartSNO5/docker/build/install'
+let g:netrw_dirhist_2='/home/gvolf/projects/ctp-docker/app/config/customer.yml'

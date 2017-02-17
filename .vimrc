@@ -11,6 +11,9 @@ set clipboard=unnamed
 
 " Disable compatibility mode for vi
 set nocompatible
+" Don't show insert bellow powerlinie
+set noshowmode
+set laststatus=2
 
 "if &term =~ '256color'
     "" Disable Background Color Erase so that color schemes
@@ -31,7 +34,7 @@ syntax enable
 
 set background=light
 "let g:solarized_termcolors=256
-colorscheme solarized
+colorscheme gotham
 
 " By default use relative numbers
 set relativenumber
@@ -72,7 +75,7 @@ set infercase
 
 " Rebind <Leader> key
 " I like to have it here becuase it is easier to reach than the default and
-" it is next to ``m`` and ``n`` which I use for navigating between tabs.
+" it is next to ``m`` and ``n`` which I use for navigating between buffers.
 let mapleader = ","
 
 " remap ESC to ii
@@ -93,7 +96,7 @@ inoremap <C-Z> <C-O>:update<CR>
 noremap <leader>s :update<CR>
 
 " Quick quit command
-noremap <Leader>e :quit<CR>  " Quit current window
+noremap <Leader>e :<esc>:bd<CR>  " Delete current buffer
 noremap <Leader>E :qa!<CR>   " Quit all windows
 
 
@@ -105,10 +108,12 @@ map <c-l> <c-w>l
 map <c-h> <c-w>h
 
 
-" easier moving between tabs
-map <Leader>n <esc>:tabprevious<CR>
-map <Leader>m <esc>:tabnext<CR>
+" easier moving between buffers
+map <Leader>n <esc>:bp<CR>
+map <Leader>m <esc>:bn<CR>
 
+" delete into black hole
+nnoremap <leader>d "_d
 
 " map sort function to a key
 "" vnoremap <Leader>s :sort<CR>
@@ -121,6 +126,9 @@ vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
 
 
+" move between lines with same indention
+nnoremap <Leader>k :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%<' . line('.') . 'l\S', 'be')<CR>
+nnoremap <Leader>j :call search('^'. matchstr(getline('.'), '\(^\s*\)') .'\%>' . line('.') . 'l\S', 'e')<CR>
 
 " Color scheme
 " mkdir -p ~/.vim/colors && cd ~/.vim/colors
@@ -132,11 +140,11 @@ vnoremap > >gv  " better indentation
 
 " Showing line numbers and length
 set number  " show line numbers
-set tw=79   " width of document (used by gd)
+"set tw=79   " width of document (used by gd)
 set nowrap  " don't automatically wrap on load
 set fo-=t   " don't automatically wrap text when typing
-set colorcolumn=80
-highlight ColorColumn ctermbg=233
+"set colorcolumn=80
+"highlight ColorColumn ctermbg=233
 
 
 " easier formatting of paragraphs
@@ -236,7 +244,12 @@ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 " pip8 check everytime file is saves
 autocmd BufWritePost *.py call Flake8()
 
+" jsx highlighting in js files
+let g:jsx_pragma_required = 0
+
 " Python folding
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
 set nofoldenable
+
+vmap <Leader>b :<C-U>!hg blame -fu <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR> " hg blame
